@@ -6,30 +6,29 @@ const Login = () => {
             
             <div>
                 <h1 className="text-indigo-600 font-black text-5xl text-center">
-                    Inicia Sesión y Administra tus <span>Pacientes</span>
+                    Inicia Sesión y Administra tus <span className="text-black">Pacientes</span>
                 </h1>
             </div>
-            <div>
+            <div className="mt-20 md:mt-5 shadow-lg hover:shadow-2xl px-5 py-10 rounded-xl bg-white">
                 <form action="">
                     <div className="my-5">
                         <label 
-                            htmlFor=""
+                            htmlFor="email"
                             className="uppercase text-gray-600 block text-xl font-bold"
                         >
                             Email
-
                         </label>
                         <input 
                             type="email" 
-                            name="" 
-                            id="" 
+                            name="email" 
+                            id="email" 
                             placeholder="Email de Registro"
                             className="border w-full p-3 mt-3 bg-gray-50 rounded-xl"
                         />
                     </div>
                     <div className="my-5">
                         <label 
-                            htmlFor=""
+                            htmlFor="password"
                             className="uppercase text-gray-600 block text-xl font-bold"
                         >
                             Password
@@ -37,8 +36,8 @@ const Login = () => {
                         </label>
                         <input 
                             type="password" 
-                            name="" 
-                            id="" 
+                            name="password" 
+                            id="password" 
                             placeholder="Tu Password"
                             className="border w-full p-3 mt-3 bg-gray-50 rounded-xl"
                         />
