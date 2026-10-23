@@ -1,35 +1,45 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { quitaBlancosArray } from "../helpers/funcionsHelpers.js";
+import axios from "axios";
+import { quitaBlancosArray } from "../helpers/functionsHelpers.js";
 import Alerta from "../components/Alerta";
+import config from "../config/config.js";
 
 const Registrar = () => {
     const [ nombre, setNombre ] = useState('')
     const [ email, setEmail ] = useState('')
-    const [ passsword, setPassword ] = useState('')
+    const [ password, setPassword ] = useState('')
     const [ repetirPassword, setRepetirPassword ] = useState('')
     const [ alerta, setAlerta ] = useState({})
 
-    const handleSubmit = e => {
+    const handleSubmit = async e => {
         e.preventDefault();
-        const arrayAValidar = quitaBlancosArray([nombre, email, passsword, repetirPassword])
+        const arrayAValidar = quitaBlancosArray([nombre, email, password, repetirPassword])
         
         if( arrayAValidar.includes('')) {
             setAlerta({ msg: 'Hay campos vacíos', error: true });
             return;
         }
         
-        if(passsword !== repetirPassword) {
+        if(password !== repetirPassword) {
             setAlerta({ msg: 'Los Password no son iguales', error: true });
             return;
         }
 
-        if(passsword.length < 6) {
+        if(password.length < 6) {
             setAlerta({ msg: 'El Password es muy corto. Debe ser, al menos de 6 caracteres', error: true });
             return;
         }
-        console.log('Todos los campos están bien...');
-        setAlerta({})
+        
+        setAlerta({});
+
+        // Crear el usuario en la api
+        try {
+            const url = `${config.apiDomain}/api/veterinarios`;
+            const respuesta = await axios.post(url, { nombre, email, password, repetirPassword })
+        } catch (error) {
+            console.error(error)
+        }
     }
 
     const { msg } = alerta
@@ -98,7 +108,7 @@ const Registrar = () => {
                             id="password" 
                             placeholder="Tu Password"
                             className="border w-full p-3 mt-3 bg-gray-50 rounded-xl"
-                            value={passsword}
+                            value={password}
                             onChange={ e => setPassword(e.target.value) }
                         />
                     </div>
