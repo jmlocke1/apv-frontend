@@ -1,30 +1,39 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { quitaBlancosArray } from "../helpers/funcionsHelpers.js";
+import Alerta from "../components/Alerta";
 
 const Registrar = () => {
     const [ nombre, setNombre ] = useState('')
     const [ email, setEmail ] = useState('')
     const [ passsword, setPassword ] = useState('')
     const [ repetirPassword, setRepetirPassword ] = useState('')
+    const [ alerta, setAlerta ] = useState({})
+
     const handleSubmit = e => {
         e.preventDefault();
         const arrayAValidar = quitaBlancosArray([nombre, email, passsword, repetirPassword])
         
         if( arrayAValidar.includes('')) {
-            console.log('Hay campos vacíos');
+            setAlerta({ msg: 'Hay campos vacíos', error: true });
             return;
         }
         
         if(passsword !== repetirPassword) {
-            console.log('Los Password no son iguales');
+            setAlerta({ msg: 'Los Password no son iguales', error: true });
             return;
         }
 
         if(passsword.length < 6) {
-            console.log('El Password es muy corto. Debe ser, al menos de 6 caracteres');
+            setAlerta({ msg: 'El Password es muy corto. Debe ser, al menos de 6 caracteres', error: true });
+            return;
         }
+        console.log('Todos los campos están bien...');
+        setAlerta({})
     }
+
+    const { msg } = alerta
+
     return (
         <>
             <div>
@@ -33,6 +42,9 @@ const Registrar = () => {
                 </h1>
             </div>
             <div className="mt-20 md:mt-5 shadow-lg hover:shadow-2xl px-5 py-10 rounded-xl bg-white">
+                { msg && <Alerta 
+                    alerta={alerta}
+                />}
                 <form 
                     action=""
                     onSubmit={handleSubmit}
