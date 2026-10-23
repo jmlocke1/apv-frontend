@@ -36,9 +36,16 @@ const Registrar = () => {
         // Crear el usuario en la api
         try {
             const url = `${config.apiDomain}/api/veterinarios`;
-            const respuesta = await axios.post(url, { nombre, email, password, repetirPassword })
+            const respuesta = await axios.post(url, { nombre, email, password, repetirPassword });
+            setAlerta({
+                msg: "Creado correctamente, revisa tu email",
+                error: false
+            })
         } catch (error) {
-            console.error(error)
+            setAlerta({
+                msg: error.response.data.msg,
+                error: true
+            });
         }
     }
 
