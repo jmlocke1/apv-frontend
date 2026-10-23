@@ -1,6 +1,30 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import { quitaBlancosArray } from "../helpers/funcionsHelpers.js";
 
 const Registrar = () => {
+    const [ nombre, setNombre ] = useState('')
+    const [ email, setEmail ] = useState('')
+    const [ passsword, setPassword ] = useState('')
+    const [ repetirPassword, setRepetirPassword ] = useState('')
+    const handleSubmit = e => {
+        e.preventDefault();
+        const arrayAValidar = quitaBlancosArray([nombre, email, passsword, repetirPassword])
+        
+        if( arrayAValidar.includes('')) {
+            console.log('Hay campos vacíos');
+            return;
+        }
+        
+        if(passsword !== repetirPassword) {
+            console.log('Los Password no son iguales');
+            return;
+        }
+
+        if(passsword.length < 6) {
+            console.log('El Password es muy corto. Debe ser, al menos de 6 caracteres');
+        }
+    }
     return (
         <>
             <div>
@@ -9,7 +33,10 @@ const Registrar = () => {
                 </h1>
             </div>
             <div className="mt-20 md:mt-5 shadow-lg hover:shadow-2xl px-5 py-10 rounded-xl bg-white">
-                <form action="">
+                <form 
+                    action=""
+                    onSubmit={handleSubmit}
+                >
                     <div className="my-5">
                         <label 
                             htmlFor=""
@@ -23,6 +50,8 @@ const Registrar = () => {
                             id="" 
                             placeholder="Tu Nombre"
                             className="border w-full p-3 mt-3 bg-gray-50 rounded-xl"
+                            value={nombre}
+                            onChange={ e => setNombre(e.target.value) }
                         />
                     </div>
                     <div className="my-5">
@@ -38,6 +67,8 @@ const Registrar = () => {
                             id="email" 
                             placeholder="Email de Registro"
                             className="border w-full p-3 mt-3 bg-gray-50 rounded-xl"
+                            value={email}
+                            onChange={ e => setEmail(e.target.value) }
                         />
                     </div>
 
@@ -55,6 +86,8 @@ const Registrar = () => {
                             id="password" 
                             placeholder="Tu Password"
                             className="border w-full p-3 mt-3 bg-gray-50 rounded-xl"
+                            value={passsword}
+                            onChange={ e => setPassword(e.target.value) }
                         />
                     </div>
 
@@ -72,12 +105,14 @@ const Registrar = () => {
                             id="repassword" 
                             placeholder="Repite tu Password"
                             className="border w-full p-3 mt-3 bg-gray-50 rounded-xl"
+                            value={repetirPassword}
+                            onChange={ e => setRepetirPassword(e.target.value) }
                         />
                     </div>
                     
                     <input 
                         type="submit" 
-                        value="Iniciar Sesión" 
+                        value="Crear Cuenta" 
                         className="bg-indigo-700 w-full py-3 px-3 rounded-xl text-white uppercase font-bold mt-5 hover:cursor-pointer hover:bg-indigo-800 md:w-auto"
                     />
                 </form>
