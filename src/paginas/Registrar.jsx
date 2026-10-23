@@ -10,7 +10,21 @@ const Registrar = () => {
     const [ email, setEmail ] = useState('')
     const [ password, setPassword ] = useState('')
     const [ repetirPassword, setRepetirPassword ] = useState('')
-    const [ alerta, setAlerta ] = useState({})
+    const [ alerta, setAlertaState ] = useState({})
+
+    const limpiaFormulario = () => {
+        setNombre('');
+        setEmail('');
+        setPassword('');
+        setRepetirPassword('');
+    }
+
+    function setAlerta(alerta) {
+        setAlertaState(alerta);
+        setTimeout(() => {
+            setAlertaState({})
+        }, 3000);
+    }
 
     const handleSubmit = async e => {
         e.preventDefault();
@@ -40,7 +54,8 @@ const Registrar = () => {
             setAlerta({
                 msg: "Creado correctamente, revisa tu email",
                 error: false
-            })
+            });
+            // limpiaFormulario();
         } catch (error) {
             setAlerta({
                 msg: error.response.data.msg,
