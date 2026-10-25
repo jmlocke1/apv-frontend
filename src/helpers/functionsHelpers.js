@@ -5,6 +5,14 @@ function quitaBlancosArray( miArray ) {
     return limpio;
 }
 
+function setAlerta(alerta) {
+    setAlertaState(alerta);
+    setTimeout(() => {
+        setAlertaState({})
+    }, 3000);
+}
+
 export {
-    quitaBlancosArray
+    quitaBlancosArray,
+    setAlerta
 }
