@@ -1,0 +1,2 @@
+<!-- Crear un fichero llamado .env y copiar todas las variables, cambiando los valores por los que correspondan al servidor -->
+VITE_BACKEND_URL = http://localhost:4000
