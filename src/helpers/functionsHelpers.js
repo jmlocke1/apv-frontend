@@ -12,7 +12,15 @@ function setAlerta(alerta) {
     }, 3000);
 }
 
+function setAlertaTime(alerta, setAlertaState) {
+    setAlertaState(alerta);
+    setTimeout(() => {
+        setAlertaState({})
+    }, 3000);
+}
+
 export {
     quitaBlancosArray,
-    setAlerta
+    setAlerta,
+    setAlertaTime
 }
