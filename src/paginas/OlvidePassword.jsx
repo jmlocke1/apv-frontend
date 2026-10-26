@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import Alerta from "../components/Alerta";
-import ClienteAxios from '../config/axios';
 import clienteAxios from "../config/axios";
+import { setAlertaTime } from "../helpers/functionsHelpers";
 
 const OlvidePassword = () => {
     const [email, setEmail] = useState('');
@@ -11,10 +11,10 @@ const OlvidePassword = () => {
     const handleSubmit = async e => {
         e.preventDefault();
         if(email === '' || email.length < 6) {
-            setAlerta({
+            setAlertaTime({
                 msg: 'El Email es obligatorio',
                 error: true
-            });
+            }, setAlerta);
             return;
         }
         try {

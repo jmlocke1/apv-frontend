@@ -5,13 +5,14 @@ import { quitaBlancosArray } from "../helpers/functionsHelpers.js";
 import Alerta from "../components/Alerta";
 import config from "../config/config.js";
 import clienteAxios from "../config/axios";
+import { setAlertaTime } from "../helpers/functionsHelpers.js";
 
 const Registrar = () => {
     const [ nombre, setNombre ] = useState('')
     const [ email, setEmail ] = useState('')
     const [ password, setPassword ] = useState('')
     const [ repetirPassword, setRepetirPassword ] = useState('')
-    const [ alerta, setAlertaState ] = useState({})
+    const [ alerta, setAlerta ] = useState({})
 
     const limpiaFormulario = () => {
         setNombre('');
@@ -20,29 +21,24 @@ const Registrar = () => {
         setRepetirPassword('');
     }
 
-    function setAlerta(alerta) {
-        setAlertaState(alerta);
-        setTimeout(() => {
-            setAlertaState({})
-        }, 3000);
-    }
 
     const handleSubmit = async e => {
         e.preventDefault();
         const arrayAValidar = quitaBlancosArray([nombre, email, password, repetirPassword])
         
         if( arrayAValidar.includes('')) {
-            setAlerta({ msg: 'Hay campos vacíos', error: true });
+            setAlertaTime({ msg: 'Hay campos vacíos', error: true }, setAlerta);
+            console.log('Hay campos vacíos');
             return;
         }
         
         if(password !== repetirPassword) {
-            setAlerta({ msg: 'Los Password no son iguales', error: true });
+            setAlertaTime({ msg: 'Los Password no son iguales', error: true }, setAlerta);
             return;
         }
 
         if(password.length < 6) {
-            setAlerta({ msg: 'El Password es muy corto. Debe ser, al menos de 6 caracteres', error: true });
+            setAlertaTime({ msg: 'El Password es muy corto. Debe ser, al menos de 6 caracteres', error: true }, setAlerta);
             return;
         }
         
@@ -51,16 +47,16 @@ const Registrar = () => {
         // Crear el usuario en la api
         try {
             const respuesta = await clienteAxios.post('/veterinarios', { nombre, email, password, repetirPassword });
-            setAlerta({
+            setAlertaTime({
                 msg: "Creado correctamente, revisa tu email",
                 error: false
-            });
+            }, setAlerta);
             limpiaFormulario();
         } catch (error) {
-            setAlerta({
+            setAlertaTime({
                 msg: error.response.data.msg,
                 error: true
-            });
+            }, setAlerta);
         }
     }
 

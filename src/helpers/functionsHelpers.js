@@ -5,12 +5,6 @@ function quitaBlancosArray( miArray ) {
     return limpio;
 }
 
-function setAlerta(alerta) {
-    setAlertaState(alerta);
-    setTimeout(() => {
-        setAlertaState({})
-    }, 3000);
-}
 
 function setAlertaTime(alerta, setAlertaState) {
     setAlertaState(alerta);
@@ -21,6 +15,6 @@ function setAlertaTime(alerta, setAlertaState) {
 
 export {
     quitaBlancosArray,
-    setAlerta,
+    // setAlerta,
     setAlertaTime
 }
