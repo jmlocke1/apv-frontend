@@ -28,7 +28,6 @@ const Registrar = () => {
         
         if( arrayAValidar.includes('')) {
             setAlertaTime({ msg: 'Hay campos vacíos', error: true }, setAlerta);
-            console.log('Hay campos vacíos');
             return;
         }
         
