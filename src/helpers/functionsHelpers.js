@@ -6,11 +6,11 @@ function quitaBlancosArray( miArray ) {
 }
 
 
-function setAlertaTime(alerta, setAlertaState) {
+function setAlertaTime(alerta, setAlertaState, time = 3000) {
     setAlertaState(alerta);
     setTimeout(() => {
         setAlertaState({})
-    }, 3000);
+    }, time);
 }
 
 export {
