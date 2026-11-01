@@ -6,8 +6,6 @@ import useAuth from "../hooks/useAuth";
 
 const RutaProtegida = () => {
     const { auth, cargando } = useAuth();
-    console.log(auth);
-    console.log(cargando);
 
     if(cargando) return 'Cargando...'
     return (
@@ -18,7 +16,6 @@ const RutaProtegida = () => {
                 <main className="container mx-auto mt-10">
                     <Outlet />
                 </main>
-                
             ) : <Navigate to="/" /> }
 
             <Footer />
