@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { setAlertaTime, quitaBlancosArray } from "../helpers/functionsHelpers.js";
-import Alerta from "./Alerta"
+import Alerta from "./Alerta";
+import usePacientes from "../hooks/usePacientes";
 
 const Formulario = () => {
     const [nombre, setNombre] = useState('');
@@ -9,6 +10,9 @@ const Formulario = () => {
     const [fecha, setFecha] = useState(Date.now());
     const [sintomas, setSintomas] = useState('');
     const [alerta, setAlerta] = useState({});
+
+    const { pacientes } = usePacientes();
+    
 
     const handleSubmit = e => {
         e.preventDefault();
