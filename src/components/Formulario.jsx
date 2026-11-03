@@ -11,7 +11,7 @@ const Formulario = () => {
     const [sintomas, setSintomas] = useState('');
     const [alerta, setAlerta] = useState({});
 
-    const { pacientes } = usePacientes();
+    const { guardarPaciente } = usePacientes();
     
 
     const handleSubmit = e => {
@@ -25,6 +25,8 @@ const Formulario = () => {
             }, setAlerta);
             return;
         }
+
+        guardarPaciente({ nombre, propietario, email, fecha, sintomas });
     }
 
     const { msg } = alerta;
