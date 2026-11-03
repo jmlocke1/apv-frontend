@@ -8,6 +8,7 @@ import ConfirmarCuenta from "./paginas/ConfirmarCuenta"
 import NuevoPassword from "./paginas/NuevoPassword"
 import AdministrarPacientes from "./paginas/AdministrarPacientes"
 import { AuthProvider } from "./context/AuthProvider"
+// import { PacientesProvider } from "./context/PacientesProvider"
 
 function App() {
 
