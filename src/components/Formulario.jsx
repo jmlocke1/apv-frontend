@@ -7,14 +7,21 @@ const Formulario = () => {
     const [nombre, setNombre] = useState('');
     const [propietario, setPropietario] = useState('');
     const [email, setEmail] = useState('');
-    const [fecha, setFecha] = useState(Date.now());
+    const [fecha, setFecha] = useState(new Date().toISOString());
     const [sintomas, setSintomas] = useState('');
     const [alerta, setAlerta] = useState({});
 
     const { guardarPaciente } = usePacientes();
     
+    const limpiaFormulario = () => {
+        setNombre('');
+        setPropietario('');
+        setEmail('');
+        setFecha(new Date().toISOString());
+        setSintomas('');
+    }
 
-    const handleSubmit = e => {
+    const handleSubmit = async e => {
         e.preventDefault();
 
         // Validar el formulario
@@ -26,7 +33,10 @@ const Formulario = () => {
             return;
         }
 
-        guardarPaciente({ nombre, propietario, email, fecha, sintomas });
+        const msg = await guardarPaciente({ nombre, propietario, email, fecha, sintomas });
+       
+        setAlertaTime( msg, setAlerta );
+        limpiaFormulario();
     }
 
     const { msg } = alerta;
