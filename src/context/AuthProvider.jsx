@@ -35,7 +35,25 @@ const AuthProvider = (prop) => {
         return () => autenticarUsuario();
     }, []);
 
-    const cerrarSesion = () => {
+    const cerrarSesion = async () => {
+        const token = localStorage.getItem('token');
+        if(!token) {
+            setCargando(false);
+            return;
+        }
+        
+        const config = {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`
+            }
+        }
+
+        try {
+            const { data } = await clienteAxios('/veterinarios/cerrar-sesion', config);
+        } catch (error) {
+            console.log(error.response.data.msg);
+        }
         localStorage.removeItem('token');
         setAuth({});
     }
