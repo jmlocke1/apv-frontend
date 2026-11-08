@@ -13,8 +13,14 @@ function setAlertaTime(alerta, setAlertaState, time = 3000) {
     }, time);
 }
 
+function formatearFecha(fecha) {
+    const nuevaFecha = new Date(fecha);
+    return new Intl.DateTimeFormat('es-ES', {dateStyle: 'long'}).format(nuevaFecha);
+}
+
 export {
     quitaBlancosArray,
     // setAlerta,
-    setAlertaTime
+    setAlertaTime,
+    formatearFecha
 }
