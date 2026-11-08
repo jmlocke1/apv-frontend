@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { setAlertaTime, quitaBlancosArray } from "../helpers/functionsHelpers.js";
 import Alerta from "./Alerta";
 import usePacientes from "../hooks/usePacientes";
@@ -9,9 +9,16 @@ const Formulario = () => {
     const [email, setEmail] = useState('');
     const [fecha, setFecha] = useState(new Date().toISOString());
     const [sintomas, setSintomas] = useState('');
+    const [id, setId] = useState(null);
     const [alerta, setAlerta] = useState({});
 
-    const { guardarPaciente } = usePacientes();
+    const { guardarPaciente, paciente } = usePacientes();
+    
+    useEffect(() => {
+        if(paciente.nombre) {
+            setNombre(paciente.nombre);
+        }
+    }, [paciente]);
     
     const limpiaFormulario = () => {
         setNombre('');
