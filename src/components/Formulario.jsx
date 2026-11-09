@@ -3,6 +3,7 @@ import { setAlertaTime, quitaBlancosArray } from "../helpers/functionsHelpers.js
 import Alerta from "./Alerta";
 import usePacientes from "../hooks/usePacientes";
 
+
 const Formulario = () => {
     const [nombre, setNombre] = useState('');
     const [propietario, setPropietario] = useState('');
@@ -12,11 +13,16 @@ const Formulario = () => {
     const [id, setId] = useState(null);
     const [alerta, setAlerta] = useState({});
 
-    const { guardarPaciente, paciente } = usePacientes();
+    const { guardarPaciente, paciente, setMostrarFormulario } = usePacientes();
     
     useEffect(() => {
         if(paciente.nombre) {
             setNombre(paciente.nombre);
+            setPropietario(paciente.propietario);
+            setEmail(paciente.email);
+            setFecha(new Date(paciente.fecha_alta).toLocaleDateString('en-CA'));
+            setSintomas(paciente.sintomas);
+            setId(paciente._id);
         }
     }, [paciente]);
     
@@ -40,10 +46,11 @@ const Formulario = () => {
             return;
         }
 
-        const msg = await guardarPaciente({ nombre, propietario, email, fecha, sintomas });
+        const msg = await guardarPaciente({ nombre, propietario, email, fecha, sintomas, id });
        
         setAlertaTime( msg, setAlerta );
         limpiaFormulario();
+        setMostrarFormulario(false);
     }
 
     const { msg } = alerta;
@@ -131,7 +138,7 @@ const Formulario = () => {
                 <input
                     type="submit"
                     className="bg-indigo-600 w-full p-3 text-white uppercase font-bold hover:bg-indigo-700 cursor-pointer transition-colors"
-                    value="Agregar Paciente"
+                    value={ id ? "Guardar Cambios" : "Agregar Paciente"}
                 />
             </form>
             {msg && <Alerta alerta={alerta} />}

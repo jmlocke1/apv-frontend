@@ -32,7 +32,14 @@ const PacientesProvider = ({children}) => {
     }, []);
 
     const guardarPaciente = async (paciente) => {
-        
+        if(paciente.id) {
+            console.log('Editando...');
+        } else {
+            console.log('Nuevo paciente');
+        }
+        setMostrarFormulario(false);
+        return {};
+
         try {
             const token = localStorage.getItem('token');
             const config = {
