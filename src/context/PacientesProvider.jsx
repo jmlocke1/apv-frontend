@@ -1,5 +1,6 @@
 import { createContext, useState, useEffect } from "react";
 import clienteAxios from "../config/axios";
+import { setAlertaTime } from "../helpers/functionsHelpers";
 
 const PacientesContext = createContext();
 
@@ -32,32 +33,40 @@ const PacientesProvider = ({children}) => {
     }, []);
 
     const guardarPaciente = async (paciente) => {
-        if(paciente.id) {
-            console.log('Editando...');
-        } else {
-            console.log('Nuevo paciente');
+        const token = localStorage.getItem('token');
+        const config = {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`
+            }
         }
-        setMostrarFormulario(false);
-        return {};
-
-        try {
-            const token = localStorage.getItem('token');
-            const config = {
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`
+        if(paciente.id) {
+            // Editando un paciente
+            try {
+                const { data } = await clienteAxios.put(`/pacientes/${paciente.id}`, paciente, config);
+                
+                const pacientesActualizados = pacientes.map( pacienteState => pacienteState._id === data._id ? data : pacienteState );
+                setPacientes(pacientesActualizados);
+                return { msg: 'Paciente actualizado correctamente' };
+            } catch (error) {
+                return {
+                    msg: error.response.data.msg,
+                    error: true
                 }
             }
-            const { data } = await clienteAxios.post('/pacientes', paciente, config);
-            const { createdAt, updateAt, __v, ...pacienteAlmacenado } = data;
+        } else {
+            // Paciente nuevo
+            try {
+                const { data } = await clienteAxios.post('/pacientes', paciente, config);
+                const { createdAt, updateAt, __v, ...pacienteAlmacenado } = data;
 
-            setPacientes([pacienteAlmacenado, ...pacientes]);
-            return {msg: "Paciente guardado correctamente"}
-        } catch (error) {
-            console.log("Estamos en el error del try", error.response.data.msg);
-            return {
-                msg: error.response.data.msg,
-                error: true
+                setPacientes([pacienteAlmacenado, ...pacientes]);
+                return {msg: "Paciente guardado correctamente"}
+            } catch (error) {
+                return {
+                    msg: error.response.data.msg,
+                    error: true
+                }
             }
         }
     }

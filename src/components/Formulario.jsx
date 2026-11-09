@@ -13,7 +13,7 @@ const Formulario = () => {
     const [id, setId] = useState(null);
     const [alerta, setAlerta] = useState({});
 
-    const { guardarPaciente, paciente, setMostrarFormulario } = usePacientes();
+    const { guardarPaciente, paciente, mostrarFormulario, setMostrarFormulario } = usePacientes();
     
     useEffect(() => {
         if(paciente.nombre) {
@@ -25,6 +25,10 @@ const Formulario = () => {
             setId(paciente._id);
         }
     }, [paciente]);
+    useEffect(() => {
+        // Cuando se muestra el formulario, se desplaza la pantalla hasta el principio del formulario
+        if(mostrarFormulario) document.getElementById('formulario').scrollIntoView({behavior: "smooth"});
+    }, [mostrarFormulario]);
     
     const limpiaFormulario = () => {
         setNombre('');
@@ -50,10 +54,13 @@ const Formulario = () => {
        
         setAlertaTime( msg, setAlerta );
         limpiaFormulario();
-        setMostrarFormulario(false);
+        setTimeout(() => {
+            setMostrarFormulario(false);
+        }, 3000)
+        
     }
 
-    const { msg } = alerta;
+    const { msg } = alerta ?? '';
     return (
         <>
             <h2 className="font-black text-3xl text-center">Administrador de Pacientes</h2>
@@ -64,6 +71,7 @@ const Formulario = () => {
             
             
             <form
+                id="formulario"
                 className="bg-white py-10 px-5 mb-10 lg:mb-5 shadow-lg rounded-md hover:shadow-xl"
                 onSubmit={handleSubmit}
             >
