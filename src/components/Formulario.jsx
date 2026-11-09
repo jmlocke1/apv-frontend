@@ -57,7 +57,6 @@ const Formulario = () => {
         setTimeout(() => {
             setMostrarFormulario(false);
         }, 3000)
-        
     }
 
     const { msg } = alerta ?? '';

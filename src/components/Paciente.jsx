@@ -1,10 +1,12 @@
+import { useState } from "react";
 import usePacientes from "../hooks/usePacientes";
-import { formatearFecha } from "../helpers/functionsHelpers";
+import { formatearFecha, setAlertaTime } from "../helpers/functionsHelpers";
 
 
 const Paciente = ({ paciente }) => {
-    const { setEdicion } = usePacientes();
+    const { setEdicion, eliminarPaciente } = usePacientes();
     const { email, fecha_alta, nombre, propietario, sintomas, _id } = paciente;
+    const [alerta, setAlerta] = useState({});
 
     return (
         <>
@@ -38,6 +40,10 @@ const Paciente = ({ paciente }) => {
                     <button
                         type="button"
                         className="py-2 px-10 bg-red-600 hover:bg-red-700 text-white uppercase font-bold rounded-lg"
+                        onClick={() => {
+                            const msgElim = eliminarPaciente(_id)
+                            setAlertaTime(msgElim, setAlerta)
+                        }}
                     >Eliminar</button>
                 </div>
             </div>
