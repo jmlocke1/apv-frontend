@@ -14,7 +14,7 @@ const Header = () => {
 
                     <nav className="flex flex-col items-center lg:flex-row gap-4 mt-5 text-white text-sm uppercase font-bold">
                         <Link to={"/admin"}>Pacientes</Link>
-                        <Link to={"/admin"}>Perfil</Link>
+                        <Link to={"/admin/perfil"}>Perfil</Link>
                         <button 
                             type="button"
                             className="cursor-pointer"
