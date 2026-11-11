@@ -1,8 +1,19 @@
-function quitaBlancosArray( miArray ) {
-    const limpio = miArray
-        .map( item => typeof item === "string" ? item.trim() : item )
-    
-    return limpio;
+function trimObjeto(dato) {
+    if (typeof dato === 'string') {
+        return dato.trim();
+    }
+
+    if (Array.isArray(dato)) {
+        return dato.map(trimObjeto);
+    }
+
+    if (dato !== null && typeof dato === 'object') {
+        return Object.fromEntries(
+            Object.entries(dato).map(([clave, valor]) => [clave, trimObjeto(valor)])
+        );
+    }
+
+    return dato;
 }
 
 
@@ -15,12 +26,13 @@ function setAlertaTime(alerta, setAlertaState, time = 3000) {
 
 function formatearFecha(fecha) {
     const nuevaFecha = new Date(fecha);
-    return new Intl.DateTimeFormat('es-ES', {dateStyle: 'long'}).format(nuevaFecha);
+    return new Intl.DateTimeFormat('es-ES', { dateStyle: 'long' }).format(nuevaFecha);
 }
 
 export {
-    quitaBlancosArray,
+    trimObjeto,
     // setAlerta,
     setAlertaTime,
     formatearFecha
 }
+

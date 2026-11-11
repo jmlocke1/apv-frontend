@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { setAlertaTime, quitaBlancosArray } from "../helpers/functionsHelpers.js";
+import { setAlertaTime, trimObjeto } from "../helpers/functionsHelpers.js";
 import Alerta from "./Alerta";
 import usePacientes from "../hooks/usePacientes";
 
@@ -42,7 +42,7 @@ const Formulario = () => {
         e.preventDefault();
 
         // Validar el formulario
-        if (quitaBlancosArray([nombre, propietario, email, fecha, sintomas]).includes('')) {
+        if (trimObjeto([nombre, propietario, email, fecha, sintomas]).includes('')) {
             setAlertaTime({
                 msg: "Todos los campos son obligatorios",
                 error: true

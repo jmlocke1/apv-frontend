@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { quitaBlancosArray } from "../helpers/functionsHelpers.js";
+import { trimObjeto } from "../helpers/functionsHelpers.js";
 import Alerta from "../components/Alerta";
 import config from "../config/config.js";
 import clienteAxios from "../config/axios";
@@ -24,7 +24,7 @@ const Registrar = () => {
 
     const handleSubmit = async e => {
         e.preventDefault();
-        const arrayAValidar = quitaBlancosArray([nombre, email, password, repetirPassword])
+        const arrayAValidar = trimObjeto([nombre, email, password, repetirPassword])
         
         if( arrayAValidar.includes('')) {
             setAlertaTime({ msg: 'Hay campos vacíos', error: true }, setAlerta);

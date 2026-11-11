@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import Alerta from "../components/Alerta";
-import { setAlertaTime, quitaBlancosArray } from "../helpers/functionsHelpers";
+import { setAlertaTime, trimObjeto } from "../helpers/functionsHelpers";
 import clienteAxios from "../config/axios";
 
 const Login = () => {
@@ -15,7 +15,7 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault()
         
-        if( quitaBlancosArray([email, password]).includes('')){
+        if( trimObjeto([email, password]).includes('')){
             setAlertaTime({
                 msg: 'Todos los campos son obligatorios',
                 error: true

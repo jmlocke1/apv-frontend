@@ -58,13 +58,18 @@ const AuthProvider = (prop) => {
         setAuth({});
     }
 
+    const actualizarPerfil = async (datos) => {
+        console.log(datos);
+    }
+
     return (
         <AuthContext.Provider 
             value={{
                 auth, 
                 setAuth,
                 cargando,
-                cerrarSesion
+                cerrarSesion,
+                actualizarPerfil
             }}
         >
             {children}
