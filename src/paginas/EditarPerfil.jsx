@@ -18,7 +18,7 @@ const EditarPerfil = () => {
         e.preventDefault();
         // Quitamos los posibles espacios en blanco que pueda haber
         setPerfil(trimObjeto(perfil));
-        let { nombre, email } = perfil;
+        const { nombre, email } = perfil;
         if([nombre, email].includes('')) {
             setAlertaTime({
                 msg: 'Email y Nombre son obligatorios',

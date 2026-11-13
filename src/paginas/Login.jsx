@@ -9,9 +9,13 @@ const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [alerta, setAlerta] = useState({});
-    const { setAuth } = useAuth();
+    const { setAuth, auth } = useAuth();
     const navigate = useNavigate();
 
+    const token = localStorage.getItem('token');
+    if(token) {
+        navigate('/admin');
+    }
     const handleSubmit = async (e) => {
         e.preventDefault()
         
