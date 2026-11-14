@@ -59,7 +59,7 @@ const Formulario = () => {
         }, 3000)
     }
 
-    const { msg } = alerta ?? '';
+    const { msg } = alerta;
     return (
         <>
             <h2 className="font-black text-3xl text-center">Administrador de Pacientes</h2>

@@ -25,9 +25,7 @@ const AuthProvider = (prop) => {
 
             try {
                 const { data } = await clienteAxios('/veterinarios/perfil');
-                console.log('Data autenticar:', data);
                 if(!data) {
-                    console.log('Borrando token...');
                     localStorage.removeItem('token');
                     setAuth({});
                 } else {
@@ -35,7 +33,6 @@ const AuthProvider = (prop) => {
                 }
                 
             } catch (error) {
-                console.log('Error en data',error.response?.data);
                 setAuth({})
             }
             setCargando(false)
@@ -50,13 +47,6 @@ const AuthProvider = (prop) => {
             return;
         }
         
-        const config = {
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`
-            }
-        }
-
         try {
             const { data } = await clienteAxios('/veterinarios/cerrar-sesion');
         } catch (error) {
@@ -73,13 +63,6 @@ const AuthProvider = (prop) => {
             return;
         }
         
-        const config = {
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`
-            }
-        }
-
         try {
             const url = `/veterinarios/perfil/${datos._id}`;
             const { data } = await clienteAxios.put(url, datos);
