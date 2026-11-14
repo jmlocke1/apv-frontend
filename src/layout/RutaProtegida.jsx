@@ -6,7 +6,7 @@ import { PacientesProvider } from "../context/PacientesProvider";
 
 const RutaProtegida = () => {
     const { auth, cargando } = useAuth();
-
+    //console.log('Cargando:', cargando, 'Auth:', auth, 'token:', localStorage.getItem('token'));
     if(cargando) return 'Cargando...'
     return (
         <>

@@ -24,10 +24,18 @@ const AuthProvider = (prop) => {
             }
 
             try {
-                const { data } = await clienteAxios('/veterinarios/perfil', config);
-                setAuth(data);
+                const { data } = await clienteAxios('/veterinarios/perfil');
+                console.log('Data autenticar:', data);
+                if(!data) {
+                    console.log('Borrando token...');
+                    localStorage.removeItem('token');
+                    setAuth({});
+                } else {
+                    setAuth(data);
+                }
+                
             } catch (error) {
-                console.log(error.response.data.msg);
+                console.log('Error en data',error.response?.data);
                 setAuth({})
             }
             setCargando(false)
@@ -50,7 +58,7 @@ const AuthProvider = (prop) => {
         }
 
         try {
-            const { data } = await clienteAxios('/veterinarios/cerrar-sesion', config);
+            const { data } = await clienteAxios('/veterinarios/cerrar-sesion');
         } catch (error) {
             console.log(error.response.data.msg);
         }
@@ -74,7 +82,7 @@ const AuthProvider = (prop) => {
 
         try {
             const url = `/veterinarios/perfil/${datos._id}`;
-            const { data } = await clienteAxios.put(url, datos, config);
+            const { data } = await clienteAxios.put(url, datos);
             setAuth(data);
             return {
                 msg: 'Almacenado Correctamente',

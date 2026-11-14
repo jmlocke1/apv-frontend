@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useNavigate, Navigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import Alerta from "../components/Alerta";
 import { setAlertaTime, trimObjeto } from "../helpers/functionsHelpers";
@@ -12,10 +12,18 @@ const Login = () => {
     const { setAuth, auth } = useAuth();
     const navigate = useNavigate();
 
-    const token = localStorage.getItem('token');
-    if(token) {
-        navigate('/admin');
-    }
+    useEffect(() =>{
+        const token = localStorage.getItem('token');
+        console.log(token);
+        if(token) navigate('/admin')
+    }, []);
+    
+    
+    // if(token) {
+    //     return <Navigate to={'/admin'} replace />;
+    // } else {
+    //     setAuth({})
+    // }
     const handleSubmit = async (e) => {
         e.preventDefault()
         
@@ -24,6 +32,7 @@ const Login = () => {
                 msg: 'Todos los campos son obligatorios',
                 error: true
             }, setAlerta);
+            return;
         }
 
         try {
