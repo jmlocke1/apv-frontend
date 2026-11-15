@@ -5,6 +5,8 @@ import Alerta from "../components/Alerta";
 import { setAlertaTime, trimObjeto } from "../helpers/functionsHelpers";
 import clienteAxios from "../config/axios";
 
+const { cerrarSesion } = useAuth
+
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -18,12 +20,6 @@ const Login = () => {
         if(token) navigate('/admin')
     }, []);
     
-    
-    // if(token) {
-    //     return <Navigate to={'/admin'} replace />;
-    // } else {
-    //     setAuth({})
-    // }
     const handleSubmit = async (e) => {
         e.preventDefault()
         
@@ -38,6 +34,8 @@ const Login = () => {
         try {
             const { data } = await clienteAxios.post('/veterinarios/login', {email, password});
             localStorage.setItem('token', data.token);
+            localStorage.setItem('refreshToken', data.refreshToken);
+            console.log(data)
             setAuth(data);
             navigate('/admin')
         } catch (error) {

@@ -53,6 +53,7 @@ const AuthProvider = (prop) => {
             console.log(error.response.data.msg);
         }
         localStorage.removeItem('token');
+        localStorage.removeItem('refreshToken');
         setAuth({});
     }
 
