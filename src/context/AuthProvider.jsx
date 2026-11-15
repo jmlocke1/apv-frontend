@@ -58,6 +58,7 @@ const AuthProvider = (prop) => {
     }
 
     const actualizarPerfil = async (datos) => {
+        console.log(datos);
         const token = localStorage.getItem('token');
         if(!token) {
             setCargando(false);
@@ -67,13 +68,17 @@ const AuthProvider = (prop) => {
         try {
             const url = `/veterinarios/perfil/${datos._id}`;
             const { data } = await clienteAxios.put(url, datos);
+            console.log('Datos que llegan:', data);
             setAuth(data);
             return {
                 msg: 'Almacenado Correctamente',
                 error: false
             }
         } catch (error) {
-            console.log(error.response);
+            return {
+                msg: error.response.data.msg,
+                error: true
+            }
         }
     }
 

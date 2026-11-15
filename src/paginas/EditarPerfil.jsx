@@ -8,13 +8,15 @@ import { setAlertaTime } from "../helpers/functionsHelpers";
 const EditarPerfil = () => {
     const { auth, actualizarPerfil } = useAuth();
     const [perfil, setPerfil] = useState({});
-    const [alerta, setAlerta] = useState({})
+    const [alerta, setAlerta] = useState({});
+
     
     useEffect( () => {
         setPerfil(auth);
+        
     }, [auth]);
-
-    const handleSubmit = e => {
+    
+    const handleSubmit = async e => {
         e.preventDefault();
         // Quitamos los posibles espacios en blanco que pueda haber
         setPerfil(trimObjeto(perfil));
@@ -26,7 +28,8 @@ const EditarPerfil = () => {
             }, setAlerta);
             return;
         }
-        actualizarPerfil(perfil);
+        const resultado = await actualizarPerfil(perfil);
+        setAlertaTime(resultado, setAlerta);
     }
 
     const { msg } = alerta

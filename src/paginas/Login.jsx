@@ -17,7 +17,7 @@ const Login = () => {
     useEffect(() =>{
         const token = localStorage.getItem('token');
         
-        if(token) navigate('/admin')
+        if(token && window.location.pathname === '/') navigate('/admin')
     }, []);
     
     const handleSubmit = async (e) => {
@@ -35,7 +35,7 @@ const Login = () => {
             const { data } = await clienteAxios.post('/veterinarios/login', {email, password});
             localStorage.setItem('token', data.token);
             localStorage.setItem('refreshToken', data.refreshToken);
-            console.log(data)
+            
             setAuth(data);
             navigate('/admin')
         } catch (error) {

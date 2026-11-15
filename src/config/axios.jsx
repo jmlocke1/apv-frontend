@@ -46,32 +46,6 @@ clienteAxios.interceptors.response.use(
         if(error.response) {
             const { status, data } = error.response;
 
-            // Manejo de errores 401 (Autenticación)
-            // if(status === 401) {
-            //     localStorage.removeItem('token');
-            //     if (data.codigo === 'TOKEN_EXPIRADO') {
-            //         console.warn('Sesión caducada:', data.msg);
-            //     } 
-            //     if(data.codigo === 'TOKEN_INVALIDO') {
-            //         console.error('Intento de acceso con token corrupto:', data.msg);
-            //     }
-            //     if(data.codigo === 'PASSWORD_INCORRECTO') {
-            //         console.error('Password incorrecto:', data.msg);
-            //     }
-
-            //     if(window.location.pathname !== '/') {
-            //         window.location.href = '/';
-            //     }
-            // }
-
-
-
-            // Manejo de error 403 (Autorización para una tarea)
-        //     if(status === 403) {
-        //         console.error('Acceso prohibido:', data.msg);
-
-        //     }
-            
             if(status === 401 && data.codigo === 'TOKEN_EXPIRADO' && !originalRequest._retry) {
                 if(isRefreshing) {
                     return new Promise((resolve, reject) => {
