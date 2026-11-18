@@ -1,12 +1,12 @@
 import { useState } from "react";
 import AdminNav from "../components/AdminNav";
 import Alerta from "../components/Alerta";
-import { setAlertaTime, trimObjeto } from "../helpers/functionsHelpers.js";
+import { trimObjeto } from "../helpers/functionsHelpers.js";
 import useAuth from "../hooks/useAuth.jsx";
 
 const CambiarPassword = () => {
-    const { guardarPassword } = useAuth();
-    const [alerta, setAlerta] = useState({});
+    const { guardarPassword, alerta, setAlertaTime } = useAuth();
+    // const [alerta, setAlerta] = useState({});
     const [password, setPassword] = useState({
         passwordActual: '',
         nuevoPassword: '',
@@ -21,21 +21,21 @@ const CambiarPassword = () => {
             setAlertaTime({
                 msg: 'Todos los campos son obligatorios',
                 error: true
-            }, setAlerta);
+            });
             return;
         }
         if(passwordLimpio.nuevoPassword !== passwordLimpio.repetirPassword) {
             setAlertaTime({
                 msg: 'Los password nuevos no son iguales',
                 error: true
-            }, setAlerta);
+            });
             return;
         }
         if(passwordLimpio.nuevoPassword.length < 6) {
             setAlertaTime({
                 msg: 'El password debe tener mínimo 6 caracteres',
                 error: true
-            }, setAlerta);
+            });
             return;
         }
         guardarPassword(passwordLimpio);

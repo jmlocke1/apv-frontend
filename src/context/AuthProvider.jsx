@@ -7,6 +7,14 @@ const AuthProvider = (prop) => {
     const {children} = prop
     const [cargando, setCargando] = useState(true);
     const [ auth, setAuth ] = useState({});
+    const [alerta, setAlerta] = useState({});
+
+    function setAlertaTime(alerta, setAlertaState = setAlerta, time = 3000) {
+        setAlertaState(alerta);
+        setTimeout(() => {
+            setAlertaState({})
+        }, time);
+}
 
     useEffect(() => {
         const autenticarUsuario = async () => {
@@ -58,7 +66,7 @@ const AuthProvider = (prop) => {
     }
 
     const actualizarPerfil = async (datos) => {
-        console.log(datos);
+        
         const token = localStorage.getItem('token');
         if(!token) {
             setCargando(false);
@@ -68,7 +76,6 @@ const AuthProvider = (prop) => {
         try {
             const url = `/veterinarios/perfil/${datos._id}`;
             const { data } = await clienteAxios.put(url, datos);
-            console.log('Datos que llegan:', data);
             setAuth(data);
             return {
                 msg: 'Almacenado Correctamente',
@@ -82,8 +89,22 @@ const AuthProvider = (prop) => {
         }
     }
 
-    const guardarPassword =  (datos) => {
-        console.log(datos);
+    const guardarPassword = async (datos) => {
+        try {
+            const url = '/veterinarios/actualizar-password';
+            const { data, request } = await clienteAxios.put(url, datos);
+            console.log('Data:', data);
+            console.log('Request:', request);
+        } catch (error) {
+            const { data } = error.response;
+            if(data.codigo === 'NUEVOPASSWORD_DIFERENTE') {
+                setAlertaTime({
+                    msg: data.msg,
+                    error: true
+                }, setAlerta)
+            }
+            console.log(data);
+        }
     }
 
     return (
@@ -91,6 +112,9 @@ const AuthProvider = (prop) => {
             value={{
                 auth, 
                 setAuth,
+                alerta,
+                setAlerta,
+                setAlertaTime,
                 cargando,
                 cerrarSesion,
                 actualizarPerfil,
