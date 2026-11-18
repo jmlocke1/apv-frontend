@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import AdminNav from "../components/AdminNav";
 import Alerta from "../components/Alerta";
 import { trimObjeto } from "../helpers/functionsHelpers.js";
@@ -7,6 +8,7 @@ import useAuth from "../hooks/useAuth.jsx";
 const CambiarPassword = () => {
     const { guardarPassword, alerta, setAlertaTime } = useAuth();
     // const [alerta, setAlerta] = useState({});
+    const navigate = useNavigate();
     const [password, setPassword] = useState({
         passwordActual: '',
         nuevoPassword: '',
@@ -38,7 +40,16 @@ const CambiarPassword = () => {
             });
             return;
         }
-        guardarPassword(passwordLimpio);
+        const respuesta = await guardarPassword(passwordLimpio);
+        setAlertaTime(respuesta);
+        setPassword({
+            passwordActual: '',
+            nuevoPassword: '',
+            repetirPassword: ''
+        });
+        setTimeout(() => {
+            navigate('/admin')
+        }, 3000);
     }
 
     

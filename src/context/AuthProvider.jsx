@@ -93,17 +93,15 @@ const AuthProvider = (prop) => {
         try {
             const url = '/veterinarios/actualizar-password';
             const { data, request } = await clienteAxios.put(url, datos);
-            console.log('Data:', data);
-            console.log('Request:', request);
-        } catch (error) {
-            const { data } = error.response;
-            if(data.codigo === 'NUEVOPASSWORD_DIFERENTE') {
-                setAlertaTime({
-                    msg: data.msg,
-                    error: true
-                }, setAlerta)
+            
+            return {
+                msg: data.msg
             }
-            console.log(data);
+        } catch (error) {
+            return {
+                msg: error.response.data.msg,
+                error: true
+            }
         }
     }
 
