@@ -9,8 +9,7 @@ import NuevoPassword from "./paginas/NuevoPassword"
 import AdministrarPacientes from "./paginas/AdministrarPacientes"
 import EditarPerfil from "./paginas/EditarPerfil"
 import CambiarPassword from "./paginas/CambiarPassword"
-import { AuthProvider } from "./context/AuthProvider"
-// import { PacientesProvider } from "./context/PacientesProvider"
+import AuthProvider from "./context/AuthProvider"
 
 function App() {
 

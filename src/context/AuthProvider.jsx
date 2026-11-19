@@ -1,7 +1,7 @@
 import { useState, useEffect, createContext } from "react";
 import clienteAxios from "../config/axios";
+import { AuthContext } from "../hooks/useAuth";
 
-const AuthContext = createContext();
 
 const AuthProvider = (prop) => {
     const {children} = prop
@@ -24,13 +24,6 @@ const AuthProvider = (prop) => {
                 return;
             }
             
-            const config = {
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`
-                }
-            }
-
             try {
                 const { data } = await clienteAxios('/veterinarios/perfil');
                 if(!data) {
@@ -124,9 +117,4 @@ const AuthProvider = (prop) => {
     )
 }
 
-export {
-    AuthProvider,
-    AuthContext
-}
-
-// export default AuthContext;
+export default AuthProvider;

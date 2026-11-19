@@ -1,5 +1,6 @@
-import { useContext } from "react";
-import { PacientesContext } from "../context/PacientesProvider";
+import { useContext, createContext } from "react";
+
+export const PacientesContext = createContext();
 
 const usePacientes = () => {
     const context = useContext(PacientesContext);
@@ -9,4 +10,4 @@ const usePacientes = () => {
     return context;
 }
 
-export default usePacientes;usePacientes
+export default usePacientes;

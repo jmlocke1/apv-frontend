@@ -1,9 +1,8 @@
 import { createContext, useState, useEffect } from "react";
 import clienteAxios from "../config/axios";
 import useAuth from "../hooks/useAuth";
-import { setAlertaTime } from "../helpers/functionsHelpers";
+import { PacientesContext } from "../hooks/usePacientes";
 
-const PacientesContext = createContext();
 
 const PacientesProvider = ({children}) => {
     const [pacientes, setPacientes] = useState([]);
@@ -96,7 +95,5 @@ const PacientesProvider = ({children}) => {
     )
 }
 
-export {
-    PacientesContext,
-    PacientesProvider
-}
+
+export default PacientesProvider
