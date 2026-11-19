@@ -14,7 +14,7 @@ const AuthProvider = (prop) => {
         setTimeout(() => {
             setAlertaState({})
         }, time);
-}
+    }
 
     useEffect(() => {
         const autenticarUsuario = async () => {
