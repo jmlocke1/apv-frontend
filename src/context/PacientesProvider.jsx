@@ -1,5 +1,6 @@
 import { createContext, useState, useEffect } from "react";
 import clienteAxios from "../config/axios";
+import useAuth from "../hooks/useAuth";
 import { setAlertaTime } from "../helpers/functionsHelpers";
 
 const PacientesContext = createContext();
@@ -8,6 +9,7 @@ const PacientesProvider = ({children}) => {
     const [pacientes, setPacientes] = useState([]);
     const [paciente, setPaciente] = useState({});
     const [mostrarFormulario, setMostrarFormulario] = useState(false);
+    const { auth } = useAuth();
 
     useEffect(() => {
         const obtenerPacientes = async () => {
@@ -21,7 +23,7 @@ const PacientesProvider = ({children}) => {
             }
         }
         obtenerPacientes();
-    }, []);
+    }, [auth]);
 
     const guardarPaciente = async (paciente) => {
         if(paciente.id) {
